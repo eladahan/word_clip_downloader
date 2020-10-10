@@ -3,8 +3,11 @@ import re
 import time
 import youtube_dl
 import subprocess
-import urllib.parse as urlparse
 from youtube_transcript_api import YouTubeTranscriptApi
+try:
+	import urllib.parse as urlparse
+except ImportError:
+	import urlparse4 as urlparse 
 
 MINUTE_IN_SECONDS = 60
 HOUR_IN_SECONDS = 3600

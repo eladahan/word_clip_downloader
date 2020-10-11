@@ -1,13 +1,10 @@
-import sys
 import re
 import time
 import youtube_dl
 import subprocess
 from youtube_transcript_api import YouTubeTranscriptApi
-try:
-	import urllib.parse as urlparse
-except ImportError:
-	import urlparse4 as urlparse 
+import urllib.parse as urlparse
+
 
 MINUTE_IN_SECONDS = 60
 HOUR_IN_SECONDS = 3600
@@ -15,9 +12,9 @@ SUPPORTED_LANGUAGES = ['en', 'en-GB', 'en-US']
 TRANSCRIPT_TEXT = "text"
 START_TIME = "start"
 DURATION = "duration"
-YOUTUBE_URL = sys.argv[1]
-DESIRED_WORD = sys.argv[2]
-FILE_PATH = sys.argv[3]
+TIMESTAMP = 1
+TIMED_CLIP = "1"
+WORD_CLIP = "2"
 
 
 def return_vid_id(url):
@@ -27,6 +24,10 @@ def return_vid_id(url):
     video = query["v"][0]
     return video
 
+def timestamp_to_seconds(timestamp):
+    """Converts timestamp string to seconds"""
+    m, s = timestamp.split(":")
+    return int(m) * MINUTE_IN_SECONDS + int(s)
 
 def time_convert(seconds):
     """
@@ -85,12 +86,42 @@ def download_wrapper(url, word, path):
     download_url = get_download_url(url)
     download_video(download_url, start, end, path)
 
+def download_clip(url, start, duration, path):
+    """downloads a clip starting at start, duration seconds long to path"""
+    download_url = get_download_url(url)
+    download_video(download_url, start, duration, path)
+
 
 def main():
-    if len(sys.argv) < 4:
-        print("Usage: <youtube url> <word> <output_file_path>")
-        sys.exit()
-    download_wrapper(YOUTUBE_URL, DESIRED_WORD, FILE_PATH)
+
+    print("Please choose the desired option (1/2)")
+    print("1. Timed Clip")
+    print("2. Clip of a certain word")
+    option = input("")
+
+    if option == TIMED_CLIP:
+        print("please insert according to the following format:")
+        print("<youtube_url> <start_time> <duration (seconds)> <path>")
+        print("example:\nhttps://www.youtube.com/watch?v=dQw4w9WgXcQ 0:00 10 test.mp4")
+        inp = input("").split(" ")
+        try:
+            timestamp = inp[TIMESTAMP]
+            inp[TIMESTAMP] = timestamp_to_seconds(timestamp)
+            download_clip(*inp)
+        except:
+            print("faulty arguments supplied")
+
+    elif option == WORD_CLIP:
+        print("please insert according to the following format:")
+        print("<youtube url> <word> <output_file_path>")
+        print("example:\nhttps://www.youtube.com/watch?v=WniMB85B1ZA Applause test.mp4")
+        inp = str(input("")).split(" ")
+        try:
+            download_wrapper(*inp)
+        except:
+            print("faulty arguments supplied")
+    else:
+        print("option unavailable")
 
 
 if __name__ == "__main__":

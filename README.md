@@ -11,8 +11,8 @@ apt-get install ffmpeg
 ```
 ## Usage
 ```
-python yt_word_downloader.py <yt_link> <word> <path_to_mp4>
+python3 yt_word_downloader.py
 ```
-if word exists in the video's transcript, it'll download a clip with the word in it to path_to_mp4.
+will prompt the options 
 
 

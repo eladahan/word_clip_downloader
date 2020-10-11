@@ -1,3 +1,2 @@
 youtube-dl == 2020.9.20
 youtube-transcript-api == 0.3.1
-urlparse4 == 0.1.3

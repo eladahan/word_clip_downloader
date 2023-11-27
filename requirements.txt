@@ -1,2 +1,2 @@
-youtube-dl == 2023.11.16
+yt_dlp == 2023.11.16
 youtube-transcript-api == 0.3.1

@@ -1,6 +1,6 @@
 import re
 import time
-import youtube_dl
+import yt_dlp
 import subprocess
 from youtube_transcript_api import YouTubeTranscriptApi
 import urllib.parse as urlparse

@@ -1,2 +1,2 @@
-youtube-dl == 2020.9.20
+youtube-dl == 2023.11.16
 youtube-transcript-api == 0.3.1

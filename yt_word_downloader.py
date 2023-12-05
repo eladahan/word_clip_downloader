@@ -109,6 +109,7 @@ def main():
             inp[TIMESTAMP] = timestamp_to_seconds(timestamp)
             download_clip(*inp)
         except:
+            # print(e)
             print("faulty arguments supplied")
 
     elif option == WORD_CLIP:

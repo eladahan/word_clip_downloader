@@ -59,7 +59,7 @@ def from_to_calc(url, word):
 
 def get_download_url(url):
     """returns a url where the youtube video is easily downloadable from"""
-    with youtube_dl.YoutubeDL({'format': 'best'}) as ydl:
+    with yt_dlp.YoutubeDL({'format': 'best'}) as ydl:
         result = ydl.extract_info(url, download=False)
         video = result['entries'][0] if 'entries' in result else result
         return video['url']
